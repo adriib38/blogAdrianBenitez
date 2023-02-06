@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 use App\Http\Requests\PostRequest;
 
 
-
 class PostsController extends Controller
 {
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\OperacionesController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\WritersController;
+use App\Http\Controllers\LoginController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -64,8 +65,6 @@ Route::resource('writers', WritersController::class)->parameters(['writers' => '
     'edit' => 'writers.editar',
 ])->except(['store', 'update', 'destroy']);
 
-
-
 Route::get('sales/empresa/{company}', [SalesController::class, 'empresa']);
 
 Route::get('primos/{numeros}', [OperacionesController::class, 'listarPrimerosPrimos'])
@@ -74,3 +73,11 @@ Route::get('primos/{numeros}', [OperacionesController::class, 'listarPrimerosPri
 
 Route::get('factorial/{numero}', [OperacionesController::class, 'factorial'])
 ->whereNumber('numero');
+
+/* AUTH */
+Route::get('registro', [LoginController::class, 'registerForm']);
+Route::post('registro', [LoginController::class, 'register'])->name('registro');
+Route::get('login', [LoginController::class, 'loginForm']);
+Route::post('login', [LoginController::class, 'login'])->name('login');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
