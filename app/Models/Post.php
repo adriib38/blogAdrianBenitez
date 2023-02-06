@@ -11,6 +11,11 @@ class Post extends Model
 
     public function writer()
     {
-        return $this->hasOne(Writers::class);
+        return $this->belongsTo(Writer::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

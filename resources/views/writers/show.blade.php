@@ -5,21 +5,14 @@
 @section('contenido')
 <h1>{{$writer->nick }}</h1>
 
-
     <p>
         Mail: {{$writer->email}}
     </p>
-
-
+   
     @foreach ($writer->posts as $post)
-        <p>
-            <a href="{{route('posts.show', $post)}}">{{$post->title}}</a>
-        </p>
+    <li>
+        <a href="{{route('posts.show', $post->slug)}}">{{$post->title}}</a>
+    </li>
     @endforeach
-    
-
-
-
-    
 
 @endsection

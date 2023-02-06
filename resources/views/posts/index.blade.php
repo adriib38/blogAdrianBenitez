@@ -8,13 +8,13 @@
         @foreach ($posts as $post)
             <li>
                 <h2>{{ $post->title }}</h2>
-                <a href="{{ route('posts.show', $post->id) }}">Ver post</a>
+                <a href="{{ route('posts.show', $post->slug) }}">Ver post</a>
                 <p>{{ $post->nick }}</p>
+            </li>
         @endforeach
     </ul>
 
-        {{$posts->links()}}
+    {{$posts->links()}}
 
 
-        
 @endsection

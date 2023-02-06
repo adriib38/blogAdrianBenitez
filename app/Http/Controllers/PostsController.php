@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\Writers;
+use App\Models\Writer;
+use Illuminate\Support\Str;
+
+use App\Http\Requests\PostRequest;
+
+
 
 class PostsController extends Controller
 {
@@ -28,7 +33,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $autores = Writer::all();
+        return view('posts.create', compact('autores'));
     }
 
     /**
@@ -39,8 +45,8 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        $writter = Writers::where('id', $post->writer_id)->first();
-        return view('posts.show', compact('post', 'writter'));
+        $writer = Writer::find($post->writer_id);
+        return view('posts.show', compact('post', 'writer'));
     }
 
     /**
@@ -51,7 +57,8 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $autores = Writer::all();
+        return view('posts.edit', compact('post', 'autores'));
     }
 
     /**
@@ -65,5 +72,30 @@ class PostsController extends Controller
         $post->delete();
         $posts = Post::where('visibility', 1)->paginate(4);
         return view('posts.index', compact('posts'));
+    }
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post();
+        $post->title = $request->get('titulo');
+        $post->slug = Str::slug($post->title);
+        $post->content = $request->get('contenido');
+        $post->visibility = $request->has('visibilidad'? 1 : 0);
+        $post->writer()->associate(Writer::find($request->get('autor')));
+        $post->save();
+
+        return view('posts.guardado', compact('post'));
+    }
+
+    public function update(PostRequest $request, Post $post)
+    {
+        $post->title = $request->get('titulo');
+        $post->slug = Str::slug($post->title);
+        $post->content = $request->get('contenido');
+        $post->visibility = $request->has('visibilidad'? 1 : 0);
+        $post->writer()->associate(Writer::find($request->get('autor')));
+        $post->save();
+
+        return view('posts.modificado', compact('post'));
     }
 }

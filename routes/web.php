@@ -7,6 +7,8 @@ use App\Http\Controllers\OperacionesController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\WritersController;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,15 +42,11 @@ Route::get('/', function () {
 })->name('inicio');
 
 //Rutas de PostsController
-Route::resource('posts', PostsController::class)->parameters(['posts' => 'post'])
-->names([
-    'index' => 'posts.lista',
-    'create' => 'posts.crear',
-    'show' => 'posts.show',
-    'edit' => 'posts.editar',
-    'destroy' => 'posts.destroy',
-
-])->except(['store', 'update']);
+Route::resource('posts', PostsController::class)
+->parameters(['post' => 'slug'])
+->missing(function (Request $request) {
+    return Redirect::route('posts.index');
+});
 
 Route::resource('sales', SalesController::class)->parameters(['sales' => 'sale'])
 ->names([
@@ -65,9 +63,6 @@ Route::resource('writers', WritersController::class)->parameters(['writers' => '
     'show' => 'writers.show',
     'edit' => 'writers.editar',
 ])->except(['store', 'update', 'destroy']);
-
-
-
 
 
 

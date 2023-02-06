@@ -4,12 +4,12 @@
 
 @section('contenido')
     <h1>{{ $post->title }}</h1>
-    <p>Writter by {{$writter->nick}}</p>
+    <p>Writer by {{$writer->nick}}</p>
     <p>{{ $post->content }}</p>
-    <a href="{{$post->id}}/editar">Editar post</a>
+    <a href="{{$post->slug}}/editar">Editar post</a>
 
 
-    <form action="{{route('posts.destroy', $post->id)}}" method="POST">
+    <form action="{{route('posts.destroy', $post->slug)}}" method="POST">
         @csrf
         @method('delete')
         <button type="submit">Eliminar post</button>
