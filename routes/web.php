@@ -73,6 +73,9 @@ Route::get('primos/{numeros}', [OperacionesController::class, 'listarPrimerosPri
 Route::get('factorial/{numero}', [OperacionesController::class, 'factorial'])
 ->whereNumber('numero');
 
+Route::get('libros', [LibrosController::class, 'listarLibros']);
+
+
 /* AUTH */
 Route::get('registro', [LoginController::class, 'registerForm']);
 Route::post('registro', [LoginController::class, 'register'])->name('registro');
