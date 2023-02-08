@@ -70,7 +70,6 @@ Route::get('sales/empresa/{company}', [SalesController::class, 'empresa']);
 Route::get('primos/{numeros}', [OperacionesController::class, 'listarPrimerosPrimos'])
 ->whereNumber('numeros');
 
-
 Route::get('factorial/{numero}', [OperacionesController::class, 'factorial'])
 ->whereNumber('numero');
 
@@ -80,4 +79,3 @@ Route::post('registro', [LoginController::class, 'register'])->name('registro');
 Route::get('login', [LoginController::class, 'loginForm']);
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-

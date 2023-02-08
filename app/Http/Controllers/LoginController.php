@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class LoginController extends Controller
@@ -24,7 +27,7 @@ class LoginController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('/');
+        return redirect()->route('inicio');
     }
 
     public function loginForm()
@@ -32,16 +35,15 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-
     public function login(Request $request)
     {
         $credenciales = $request->only('name', 'password');
 
-        if(Auth::guard('web')->attemps($credenciales))
+        if(Auth::attempt($credenciales))
         {
             //Autenticación exitosa
             $request->session()->regenerateToken();
-            return redirect()->route('users.account');
+            return redirect()->route('inicio');
         }else{
             $error = 'Error al acceder a la aplicación';
             return view('/', compact('error'));

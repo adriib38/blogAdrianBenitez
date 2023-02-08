@@ -37,6 +37,4 @@ class SalesController extends Controller
         return view('sales.company', compact('sales', 'companyName'));
     }
 
-    
-
 }

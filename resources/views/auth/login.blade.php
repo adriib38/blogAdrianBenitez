@@ -11,9 +11,6 @@
         Name:
         <input type="text" name="name">
 
-        Email:
-        <input type="email" name="mail">
-
         Contraseña:
         <input type="password" name="password">
 

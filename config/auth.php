@@ -39,6 +39,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'remember' => 1440, //Tiempo durante el cual se recuerda el login. 1440 es un dia. (24horas*60minutos).
         ],
     ],
 
